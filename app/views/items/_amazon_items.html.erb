@@ -17,14 +17,29 @@
           </p>
         </div>
         <div class="action clearfix">
+          <% current_item = Item.find_by(asin: item.get('ASIN')) %>
+          <% if current_user.want?(current_item) %>
+          <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Want") ,
+                      :class => "want_it-#{item.get('ASIN')} btn-want btn btn-danger btn-sm wanted",
+                      :remote => true,
+                      :method => :destroy %>
+          <% else %>            
           <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Want") ,
                       :class => "want-#{item.get('ASIN')} btn-want btn btn-danger btn-sm want",
                       :remote => true,
                       :method => :post %>
+          <% end %>
+          <% if current_user.have?(current_item) %>
+          <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Have") ,
+                      :class => "have_it-#{item.get('ASIN')} btn-have btn btn-warning btn-sm haved",
+                      :remote => true,
+                      :method => :destroy %>
+          <% else %>            
           <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Have") ,
                       :class => "have-#{item.get('ASIN')} btn-have btn btn-warning btn-sm have",
                       :remote => true,
                       :method => :post %>
+          <% end %>            
         </div>
       </div>
     <% end %>
