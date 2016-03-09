@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="container-inner inner-default clearfix">
+    <div class="col-sm-12">
+      <h1 style="text-align:center;">HAVEランキングページ</h1>
+    </div>
+    
+    <% @ranking_have_item.each_with_index do |item_array, index| %>
+      <% item = Item.find(item_array[0]) %>
+      <div class="col-sm-12">
+        <h2 style="text-align:center;">
+        <%= "#{index +1}位" %>
+        </h2>
+      </div>
+      <div class="col-sm-12", style="text-align:center;">
+      <% if item.large_image.present? %>
+        <%= image_tag(item.large_image , alt: item.title) %>
+      <% else %>
+        <%= image_tag("no-image.png" , alt: item.title) %>
+      <% end %>
+      </div>
+      <div class="col-sm-12", style="text-align:center;">
+        <h3>
+          <%= item.title %>
+        </h3>
+      </div>
+      <div class="col-sm-12", style="text-align:center;">
+      <%= "Haveした人は#{item_array[1]}人です" %>
+      </div>
+    <% end %>
+  </div>
+</div>    
